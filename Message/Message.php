@@ -1,22 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jakub Fajkus
- * Date: 18.05.16
- * Time: 12:02
- */
 
-namespace Trinity\MessagesBundle\Entity;
+namespace Trinity\MessagesBundle\Message;
 
 use Trinity\MessagesBundle\Exception\DataNotValidJsonException;
 use Trinity\MessagesBundle\Exception\MissingClientIdException;
-use Trinity\MessagesBundle\Exception\MissingClientSecretException;
 use Trinity\MessagesBundle\Exception\MissingMessageTypeException;
+use Trinity\MessagesBundle\Exception\MissingSecretKeyException;
 
 /**
  * Class Message
  *
- * @package Trinity\MessagesBundle\Entity
+ * @package Trinity\MessagesBundle\Message
  */
 class Message
 {
@@ -27,42 +21,42 @@ class Message
     const CREATED_ON_KEY = 'createdOn';
     const MESSAGE_TYPE_KEY = 'messageType';
     const PARENT_MESSAGE_UID_KEY = 'parent';
+    const SENDER_KEY = 'sender';
+    const DESTINATION_KEY = 'destination';
     const MESSAGE_TYPE = 'message';
 
     /** @var  string */
     protected $uid;
 
-
     /** @var string */
     protected $clientId;
 
-
     /** @var  string */
-    protected $clientSecret;
-
+    protected $secretKey;
 
     /** @var  string */
     protected $jsonData;
 
-
     /** @var  mixed Data in raw format(numbers, objects, arrays) */
     protected $rawData;
-
 
     /** @var  \DateTime */
     protected $createdOn;
 
-
     /** @var  string */
     protected $hash;
-
 
     /** @var  string */
     protected $type;
 
-
     /** @var  string */
     protected $parentMessageUid;
+
+    /** @var  string */
+    protected $sender;
+
+    /** @var  string */
+    protected $destination;
 
     /**
      * Message constructor.
@@ -76,17 +70,16 @@ class Message
         $this->parentMessageUid = null;
     }
 
-
     /**
      * Make hash from the object's data
      *
-     * @throws \Trinity\MessagesBundle\Exception\MissingClientSecretException
+     * @throws \Trinity\MessagesBundle\Exception\MissingSecretKeyException
      * @throws \Trinity\MessagesBundle\Exception\MissingClientIdException
      */
     public function makeHash()
     {
-        if (!$this->clientSecret) {
-            throw new MissingClientSecretException('No client secret defined while trying to make hash.');
+        if (!$this->secretKey) {
+            throw new MissingSecretKeyException('No client secret defined while trying to make hash.');
         }
 
         if (!$this->clientId) {
@@ -102,20 +95,21 @@ class Message
                     $this->clientId,
                     json_encode($this->jsonData),
                     $this->createdOn,
-                    $this->clientSecret,
+                    $this->secretKey,
                     $this->type,
-                    $this->parentMessageUid
+                    $this->parentMessageUid,
+                    $this->sender,
+                    $this->destination
                 ]
             )
         );
     }
 
-
     /**
      * Check if the current hash is equal to newly generated hash.
      *
      * @return bool
-     * @throws \Trinity\MessagesBundle\Exception\MissingClientSecretException
+     * @throws \Trinity\MessagesBundle\Exception\MissingSecretKeyException
      * @throws \Trinity\MessagesBundle\Exception\MissingClientIdException
      */
     public function isHashValid() : bool
@@ -126,17 +120,18 @@ class Message
         return $oldHash === $this->hash;
     }
 
-
     /**
-     * Encode message to JSON.
+     * Encode message to JSON or array.
+     *
+     * @param bool $getAsArray
      *
      * @return string
      *
-     * @throws \Trinity\MessagesBundle\Exception\MissingMessageTypeException
      * @throws MissingClientIdException
-     * @throws MissingClientSecretException
+     * @throws MissingMessageTypeException
+     * @throws MissingSecretKeyException
      */
-    public function pack() : string
+    public function pack(bool $getAsArray = false) : string
     {
         if ($this->type === null) {
             throw new MissingMessageTypeException('Trying to pack a message without type');
@@ -148,9 +143,13 @@ class Message
 
         $this->makeHash();
 
-        return $this->getAsJson();
-    }
+        if ($getAsArray === true) {
+            return $this->getAsArray();
+        } else {
+            return $this->getAsJson();
+        }
 
+    }
 
     /**
      * Unpack message
@@ -181,31 +180,43 @@ class Message
         $messageObject->jsonData = $messageArray[self::DATA_KEY];
         $messageObject->rawData = \json_decode($messageObject->jsonData, true);
         $messageObject->parentMessageUid = $messageArray[self::PARENT_MESSAGE_UID_KEY];
+        $messageObject->destination = $messageArray[self::DESTINATION_KEY];
+        $messageObject->sender = $messageArray[self::SENDER_KEY];
 
         return $messageObject;
     }
-
 
     /**
      * Get the Message as json
      *
      * @return string
      */
-    public function getAsJson() : string
+    protected function getAsJson() : string
     {
         return json_encode(
-            [
-                self::MESSAGE_TYPE_KEY => $this->type,
-                self::UID_KEY => $this->uid,
-                self::CLIENT_ID_KEY => $this->clientId,
-                self::CREATED_ON_KEY => $this->createdOn,
-                self::HASH_KEY => $this->hash,
-                self::DATA_KEY => $this->jsonData,
-                self::PARENT_MESSAGE_UID_KEY => $this->parentMessageUid
-            ]
+            $this->getAsArray()
         );
     }
 
+    /**
+     * Get the message as array
+     *
+     * @return array
+     */
+    protected function getAsArray()
+    {
+        return [
+            self::MESSAGE_TYPE_KEY => $this->type,
+            self::UID_KEY => $this->uid,
+            self::CLIENT_ID_KEY => $this->clientId,
+            self::CREATED_ON_KEY => $this->createdOn,
+            self::HASH_KEY => $this->hash,
+            self::DATA_KEY => $this->jsonData,
+            self::PARENT_MESSAGE_UID_KEY => $this->parentMessageUid,
+            self::SENDER_KEY => $this->sender,
+            self::DESTINATION_KEY => $this->destination,
+        ];
+    }
 
     /**
      * @param Message $message
@@ -222,10 +233,11 @@ class Message
         $message->jsonData = $this->jsonData;
         $message->parentMessageUid = $this->parentMessageUid;
         $message->rawData = $this->rawData;
+        $message->sender = $this->sender;
+        $message->destination = $this->destination;
 
         return $message;
     }
-
 
     /**
      * @param Message $message
@@ -241,7 +253,6 @@ class Message
         return $returnMessage;
     }
 
-
     /**
      * @return string
      */
@@ -249,7 +260,6 @@ class Message
     {
         return $this->uid;
     }
-
 
     /**
      * @param string $uid
@@ -259,7 +269,6 @@ class Message
         $this->uid = $uid;
     }
 
-
     /**
      * @return string
      */
@@ -267,7 +276,6 @@ class Message
     {
         return $this->clientId;
     }
-
 
     /**
      * @param string $clientId
@@ -277,24 +285,21 @@ class Message
         $this->clientId = $clientId;
     }
 
-
     /**
      * @return string
      */
-    public function getClientSecret() : string
+    public function getSecretKey() : string
     {
-        return $this->clientSecret;
+        return $this->secretKey;
     }
-
 
     /**
-     * @param string $clientSecret
+     * @param string $secretKey
      */
-    public function setClientSecret(string $clientSecret)
+    public function setSecretKey(string $secretKey)
     {
-        $this->clientSecret = $clientSecret;
+        $this->secretKey = $secretKey;
     }
-
 
     /**
      * @return \DateTime
@@ -304,7 +309,6 @@ class Message
         return $this->createdOn;
     }
 
-
     /**
      * @param \DateTime $createdOn
      */
@@ -312,7 +316,6 @@ class Message
     {
         $this->createdOn = $createdOn;
     }
-
 
     /**
      * @return string
@@ -322,7 +325,6 @@ class Message
         return $this->hash;
     }
 
-
     /**
      * @param string $hash
      */
@@ -330,7 +332,6 @@ class Message
     {
         $this->hash = $hash;
     }
-
 
     /**
      * @return string
@@ -340,7 +341,6 @@ class Message
         return $this->type;
     }
 
-
     /**
      * @param string $type
      */
@@ -348,7 +348,6 @@ class Message
     {
         $this->type = $type;
     }
-
 
     /**
      * @return string
@@ -358,7 +357,6 @@ class Message
         return $this->jsonData;
     }
 
-
     /**
      * @param string $jsonData
      */
@@ -366,7 +364,6 @@ class Message
     {
         $this->jsonData = $jsonData;
     }
-
 
     /**
      * @return mixed
@@ -376,7 +373,6 @@ class Message
         return $this->rawData;
     }
 
-
     /**
      * @param mixed $rawData
      */
@@ -384,7 +380,6 @@ class Message
     {
         $this->rawData = $rawData;
     }
-
 
     /**
      * @return string
@@ -394,12 +389,43 @@ class Message
         return $this->parentMessageUid;
     }
 
-
     /**
      * @param string $parentMessageUid
      */
     public function setParentMessageUid(string $parentMessageUid)
     {
         $this->parentMessageUid = $parentMessageUid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSender() : string
+    {
+        return $this->sender;
+    }
+
+    /**
+     * @param string $sender
+     */
+    public function setSender(string $sender)
+    {
+        $this->sender = $sender;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDestination() : string
+    {
+        return $this->destination;
+    }
+
+    /**
+     * @param string $destination
+     */
+    public function setDestination(string $destination)
+    {
+        $this->destination = $destination;
     }
 }

@@ -3,9 +3,9 @@
 namespace Trinity\MessagesBundle\Exception;
 
 /**
- * Class MissingMessageTypeException
+ * Class MissingSecretKeyException
  * @package Trinity\MessagesBundle\Exception
  */
-class MissingMessageTypeException extends \Exception
+class MissingSecretKeyException extends \Exception
 {
 }

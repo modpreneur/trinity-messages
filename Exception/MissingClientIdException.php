@@ -9,5 +9,4 @@ namespace Trinity\MessagesBundle\Exception;
  */
 class MissingClientIdException extends \Exception
 {
-
 }
