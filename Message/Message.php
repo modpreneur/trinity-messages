@@ -310,11 +310,16 @@ class Message
     }
 
     /**
-     * @param \DateTime $createdOn
-     */
-    public function setCreatedOn(\DateTime $createdOn)
+         * @param $createdOn
+         */
+    public function setCreatedOn($createdOn)
     {
-        $this->createdOn = $createdOn;
+        if ($createdOn instanceof \DateTime) {
+            $this->createdOn = $createdOn;
+        } elseif (is_int($createdOn)) {
+            $this->createdOn = new \DateTime();
+            $this->createdOn->setTimestamp($createdOn);
+        }
     }
 
     /**
