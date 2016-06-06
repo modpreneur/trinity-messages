@@ -1,12 +1,12 @@
 <?php
 
-namespace Trinity\MessagesBundle\Event;
+namespace Trinity\Bundle\MessagesBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class SendMessageEvent
- * @package Trinity\MessagesBundle\Event
+ * @package Trinity\Bundle\MessagesBundle\Event
  *
  * It could have one property of class Message but...
  * This event is meant to be listened by low level class which should not know(or can not know) about the Message object

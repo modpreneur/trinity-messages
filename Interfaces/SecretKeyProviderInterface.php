@@ -1,10 +1,10 @@
 <?php
 
-namespace Trinity\MessagesBundle\Interfaces;
+namespace Trinity\Bundle\MessagesBundle\Interfaces;
 
 /**
  * Interface SecretKeyProviderInterface
- * @package Trinity\MessagesBundle\Interfaces
+ * @package Trinity\Bundle\MessagesBundle\Interfaces
  */
 interface SecretKeyProviderInterface
 {

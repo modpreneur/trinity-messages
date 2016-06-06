@@ -1,10 +1,10 @@
 <?php
 
-namespace Trinity\NotificationBundle\Exception;
+namespace Trinity\Bundle\MessagesBundle\Exception;
 
 /**
  * Class HashMismatchException
- * @package Trinity\NotificationBundle\Exception
+ * @package Trinity\Bundle\MessagesBundle\Exception
  */
 class HashMismatchException extends \Exception
 {

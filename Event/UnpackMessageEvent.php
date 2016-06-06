@@ -1,12 +1,12 @@
 <?php
 
-namespace Trinity\MessagesBundle\Event;
+namespace Trinity\Bundle\MessagesBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class UnpackMessageEvent
- * @package Trinity\MessagesBundle\Event
+ * @package Trinity\Bundle\MessagesBundle\Event
  *
  * Is dispatched by the lower level class which is responsible for sending strings representing messages.
  */

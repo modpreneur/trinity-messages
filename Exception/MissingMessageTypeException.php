@@ -1,10 +1,10 @@
 <?php
 
-namespace Trinity\MessagesBundle\Exception;
+namespace Trinity\Bundle\MessagesBundle\Exception;
 
 /**
  * Class MissingMessageTypeException
- * @package Trinity\MessagesBundle\Exception
+ * @package Trinity\Bundle\MessagesBundle\Exception
  */
 class MissingMessageTypeException extends \Exception
 {

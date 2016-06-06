@@ -1,16 +1,16 @@
 <?php
 
-namespace Trinity\MessagesBundle\Message;
+namespace Trinity\Bundle\MessagesBundle\Message;
 
-use Trinity\MessagesBundle\Exception\DataNotValidJsonException;
-use Trinity\MessagesBundle\Exception\MissingClientIdException;
-use Trinity\MessagesBundle\Exception\MissingMessageTypeException;
-use Trinity\MessagesBundle\Exception\MissingSecretKeyException;
+use Trinity\Bundle\MessagesBundle\Exception\DataNotValidJsonException;
+use Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException;
+use Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException;
+use Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException;
 
 /**
  * Class Message
  *
- * @package Trinity\MessagesBundle\Message
+ * @package Trinity\Bundle\MessagesBundle\Message
  */
 class Message
 {
@@ -66,15 +66,15 @@ class Message
         $this->type = self::MESSAGE_TYPE;
         $this->uid = uniqid('', true);
         $this->createdOn = (new \DateTime('now'))->getTimestamp();
-        $this->jsonData = null;
-        $this->parentMessageUid = null;
+        $this->jsonData = '';
+        $this->parentMessageUid = '';
     }
 
     /**
      * Make hash from the object's data
      *
-     * @throws \Trinity\MessagesBundle\Exception\MissingSecretKeyException
-     * @throws \Trinity\MessagesBundle\Exception\MissingClientIdException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      */
     public function makeHash()
     {
@@ -109,8 +109,8 @@ class Message
      * Check if the current hash is equal to newly generated hash.
      *
      * @return bool
-     * @throws \Trinity\MessagesBundle\Exception\MissingSecretKeyException
-     * @throws \Trinity\MessagesBundle\Exception\MissingClientIdException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      */
     public function isHashValid() : bool
     {

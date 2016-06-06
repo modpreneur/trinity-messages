@@ -1,12 +1,12 @@
 <?php
 
-namespace Trinity\MessagesBundle\Event;
+namespace Trinity\Bundle\MessagesBundle\Event;
 
-use Trinity\MessagesBundle\Message\Message;
+use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class AfterMessageUnpackedEvent
- * @package Trinity\MessagesBundle\Event
+ * @package Trinity\Bundle\MessagesBundle\Event
  *
  * This event id dispatched when the message was unpacked either with or without error.
  * This event is meant to be used for logging all received message.

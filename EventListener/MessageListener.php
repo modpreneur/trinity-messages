@@ -1,13 +1,13 @@
 <?php
 
-namespace Trinity\MessagesBundle\EventListener;
+namespace Trinity\Bundle\MessagesBundle\EventListener;
 
-use Trinity\MessagesBundle\Event\UnpackMessageEvent;
-use Trinity\MessagesBundle\Message\MessageReader;
+use Trinity\Bundle\MessagesBundle\Event\UnpackMessageEvent;
+use Trinity\Bundle\MessagesBundle\Message\MessageReader;
 
 /**
  * Class MessageListener
- * @package Trinity\MessagesBundle\EventListener
+ * @package Trinity\Bundle\MessagesBundle\EventListener
  */
 class MessageListener
 {
@@ -17,7 +17,7 @@ class MessageListener
     /**
      * @param UnpackMessageEvent $event
      *
-     * @throws \Trinity\MessagesBundle\Exception\DataNotValidJsonException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\DataNotValidJsonException
      */
     public function onUnpackMessageEvent(UnpackMessageEvent $event)
     {

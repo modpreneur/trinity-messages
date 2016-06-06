@@ -1,13 +1,13 @@
 <?php
 
-namespace Trinity\MessagesBundle\Event;
+namespace Trinity\Bundle\MessagesBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use Trinity\MessagesBundle\Message\Message;
+use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class ReadMessageEvent
- * @package Trinity\MessagesBundle\Event
+ * @package Trinity\Bundle\MessagesBundle\Event
  *
  * Is dispatched when the message is successfully unpacked and ready to be read by user of this package.
  */

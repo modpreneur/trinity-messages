@@ -1,13 +1,13 @@
 <?php
 
-namespace Trinity\MessagesBundle\Event;
+namespace Trinity\Bundle\MessagesBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use Trinity\MessagesBundle\Message\Message;
+use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class ReadMessageError
- * @package Trinity\MessagesBundle\Event
+ * @package Trinity\Bundle\MessagesBundle\Event
  *
  * This event is dispatched when reading of a message failed.
  * This can by because of malformed data, missing credentials of invalid message format.

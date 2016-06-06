@@ -1,12 +1,12 @@
 <?php
 
-namespace Trinity\NotificationBundle\Exception;
+namespace Trinity\Bundle\MessagesBundle\Exception;
 
-use Trinity\MessagesBundle\Message\Message;
+use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class MessageNotProcessedException
- * @package Trinity\NotificationBundle\Exception
+ * @package Trinity\Bundle\MessagesBundle\Exception
  */
 class MessageNotProcessedException extends \Exception
 {

@@ -1,22 +1,22 @@
 <?php
 
-namespace Trinity\MessagesBundle\Message;
+namespace Trinity\Bundle\MessagesBundle\Message;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Trinity\MessagesBundle\Event\AfterUnpackMessageEvent;
-use Trinity\MessagesBundle\Event\Events;
-use Trinity\MessagesBundle\Event\ReadMessageError;
-use Trinity\MessagesBundle\Event\ReadMessageEvent;
-use Trinity\MessagesBundle\Interfaces\SecretKeyProviderInterface;
-use Trinity\NotificationBundle\Exception\HashMismatchException;
-use Trinity\NotificationBundle\Exception\MessageNotProcessedException;
+use Trinity\Bundle\MessagesBundle\Event\AfterUnpackMessageEvent;
+use Trinity\Bundle\MessagesBundle\Event\Events;
+use Trinity\Bundle\MessagesBundle\Event\ReadMessageError;
+use Trinity\Bundle\MessagesBundle\Event\ReadMessageEvent;
+use Trinity\Bundle\MessagesBundle\Exception\HashMismatchException;
+use Trinity\Bundle\MessagesBundle\Exception\MessageNotProcessedException;
+use Trinity\Bundle\MessagesBundle\Interfaces\SecretKeyProviderInterface;
 
 /**
  * Class MessageReader
  *
  * This class is an starting point for incoming message.
  *
- * @package Trinity\MessagesBundle\Message
+ * @package Trinity\Bundle\MessagesBundle\Message
  */
 class MessageReader
 {
@@ -43,7 +43,7 @@ class MessageReader
      * @param string $messageJson
      * @param string $source Source of the message(rabbit queue, API endpoint)
      *
-     * @throws \Trinity\MessagesBundle\Exception\DataNotValidJsonException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\DataNotValidJsonException
      */
     public function read(string $messageJson, string $source)
     {
@@ -134,9 +134,9 @@ class MessageReader
     /**
      * @param Message $messageObject
      *
-     * @throws \Trinity\NotificationBundle\Exception\HashMismatchException
-     * @throws \Trinity\MessagesBundle\Exception\MissingSecretKeyException
-     * @throws \Trinity\MessagesBundle\Exception\MissingClientIdException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\HashMismatchException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      */
     protected function checkHash(Message $messageObject)
     {

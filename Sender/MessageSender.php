@@ -1,17 +1,17 @@
 <?php
 
-namespace Trinity\MessagesBundle\Message;
+namespace Trinity\Bundle\MessagesBundle\Message;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Trinity\MessagesBundle\Event\Events;
-use Trinity\MessagesBundle\Event\SendMessageEvent;
-use Trinity\MessagesBundle\Exception\MissingMessageDestinationException;
-use Trinity\NotificationBundle\Exception\MissingSendMessageListenerException;
+use Trinity\Bundle\MessagesBundle\Event\Events;
+use Trinity\Bundle\MessagesBundle\Event\SendMessageEvent;
+use Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException;
+use Trinity\Bundle\MessagesBundle\Exception\MissingSendMessageListenerException;
 
 /**
  * Class MessageSender
  *
- * @package Trinity\MessagesBundle\Notification
+ * @package Trinity\Bundle\MessagesBundle\Notification
  */
 class MessageSender
 {
@@ -39,9 +39,9 @@ class MessageSender
     /**
      * Send all messages.
      *
-     * @throws \Trinity\NotificationBundle\Exception\MissingSendMessageListenerException
-     * @throws \Trinity\MessagesBundle\Exception\MissingMessageTypeException
-     * @throws \Trinity\MessagesBundle\Exception\MissingMessageDestinationException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSendMessageListenerException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException
      */
     public function sendAll()
     {
@@ -59,9 +59,9 @@ class MessageSender
      *
      * @throws MissingMessageDestinationException
      * @throws MissingSendMessageListenerException
-     * @throws \Trinity\MessagesBundle\Exception\MissingMessageTypeException
-     * @throws \Trinity\MessagesBundle\Exception\MissingClientIdException
-     * @throws \Trinity\MessagesBundle\Exception\MissingSecretKeyException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
      */
     public function sendMessage(Message $message)
     {
