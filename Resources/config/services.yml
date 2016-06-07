@@ -1,0 +1,6 @@
+services:
+    trinity.messages.message_manager:
+        class: Trinity\Bundle\MessagesBundle\Message\MessageSender
+        arguments:
+            - "@event_dispatcher"
+            - "%trinity.messages.sender_identification"

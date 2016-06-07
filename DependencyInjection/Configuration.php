@@ -26,6 +26,10 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
+        $rootNode = $treeBuilder->root('trinity_messages');
+
+        $rootNode->children()->scalarNode('sender_identification')->cannotBeEmpty()->end();
+
         return $treeBuilder;
     }
 }
