@@ -1,12 +1,13 @@
 <?php
 
-namespace Trinity\Bundle\MessagesBundle\Message;
+namespace Trinity\Bundle\MessagesBundle\Sender;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Trinity\Bundle\MessagesBundle\Event\Events;
 use Trinity\Bundle\MessagesBundle\Event\SendMessageEvent;
 use Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException;
 use Trinity\Bundle\MessagesBundle\Exception\MissingSendMessageListenerException;
+use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class MessageSender
