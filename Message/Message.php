@@ -310,8 +310,8 @@ class Message
     }
 
     /**
-         * @param $createdOn
-         */
+     * @param \DateTime|int $createdOn DateTime or timestamp(which is converted to datetime internally)
+     */
     public function setCreatedOn($createdOn)
     {
         if ($createdOn instanceof \DateTime) {
