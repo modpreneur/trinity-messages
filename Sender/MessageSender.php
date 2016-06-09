@@ -70,10 +70,6 @@ class MessageSender
             $message->setSender($this->senderIdentification);
         }
 
-        if ($message->getDestination() === null) {
-            throw new MissingMessageDestinationException('Message does not have destination');
-        }
-
         if ($this->eventDispatcher->hasListeners(Events::SEND_MESSAGE) === false) {
             throw new MissingSendMessageListenerException(
                 'There is no listener for event ' . Events::SEND_MESSAGE . ' so nobody is able to send the message'

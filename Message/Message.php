@@ -4,7 +4,9 @@ namespace Trinity\Bundle\MessagesBundle\Message;
 
 use Trinity\Bundle\MessagesBundle\Exception\DataNotValidJsonException;
 use Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException;
+use Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException;
 use Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException;
+use Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException;
 use Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException;
 
 /**
@@ -23,6 +25,8 @@ class Message
     const PARENT_MESSAGE_UID_KEY = 'parent';
     const SENDER_KEY = 'sender';
     const DESTINATION_KEY = 'destination';
+    const USER_KEY = 'user';
+
     const MESSAGE_TYPE = 'message';
 
     /** @var  string */
@@ -57,6 +61,9 @@ class Message
 
     /** @var  string */
     protected $destination;
+
+    /** @var  string Identification of the user who sent this message. */
+    protected $user;
 
     /**
      * Message constructor.
@@ -99,7 +106,8 @@ class Message
                     $this->type,
                     $this->parentMessageUid,
                     $this->sender,
-                    $this->destination
+                    $this->destination,
+                    $this->user
                 ]
             )
         );
@@ -126,7 +134,9 @@ class Message
      * @param bool $getAsArray
      *
      * @return string
-     *
+     * 
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException
      * @throws MissingClientIdException
      * @throws MissingMessageTypeException
      * @throws MissingSecretKeyException
@@ -135,6 +145,14 @@ class Message
     {
         if ($this->type === null) {
             throw new MissingMessageTypeException('Trying to pack a message without type');
+        }
+        
+        if ($this->user === null) {
+            throw new MissingMessageUserException();
+        }
+
+        if ($this->getDestination() === null) {
+            throw new MissingMessageDestinationException('Message does not have destination');
         }
 
         if ($this->jsonData === null) {
@@ -182,6 +200,7 @@ class Message
         $messageObject->parentMessageUid = $messageArray[self::PARENT_MESSAGE_UID_KEY];
         $messageObject->destination = $messageArray[self::DESTINATION_KEY];
         $messageObject->sender = $messageArray[self::SENDER_KEY];
+        $messageObject->user = $messageArray[self::USER_KEY];
 
         return $messageObject;
     }
@@ -215,6 +234,7 @@ class Message
             self::PARENT_MESSAGE_UID_KEY => $this->parentMessageUid,
             self::SENDER_KEY => $this->sender,
             self::DESTINATION_KEY => $this->destination,
+            self::USER_KEY => $this->user
         ];
     }
 
@@ -235,6 +255,7 @@ class Message
         $message->rawData = $this->rawData;
         $message->sender = $this->sender;
         $message->destination = $this->destination;
+        $message->user = $this->user;
 
         return $message;
     }
@@ -432,5 +453,21 @@ class Message
     public function setDestination(string $destination)
     {
         $this->destination = $destination;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUser() : string
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param string $user
+     */
+    public function setUser(string $user)
+    {
+        $this->user = $user;
     }
 }
