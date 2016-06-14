@@ -174,8 +174,12 @@ class MessageReader
      * @param \Exception $exception
      * @param Message    $message
      */
-    public function dispatchErrorEvent(string $messageJson, string $source, \Exception $exception, Message $message = null)
-    {
+    public function dispatchErrorEvent(
+        string $messageJson,
+        string $source,
+        \Exception $exception,
+        Message $message = null
+    ) {
         $event = new ReadMessageErrorEvent($messageJson, $source, $exception, $message);
         $this->eventDispatcher->dispatch(Events::READ_MESSAGE_ERROR, $event);
     }

@@ -37,7 +37,7 @@ class MessageSender
      * MessageSender constructor.
      *
      * @param EventDispatcherInterface $eventDispatcher
-     * @param string $senderIdentification
+     * @param string                   $senderIdentification
      */
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -55,6 +55,7 @@ class MessageSender
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException
      */
     public function sendAll()
     {
@@ -96,7 +97,7 @@ class MessageSender
         if ($message->getSecretKey() === '') {
             $message->setSecretKey($this->secretKeyProvider->getSecretKey($message->getClientId()));
         }
-        
+
         $event = new SendMessageEvent($message);
 
         /** @var SendMessageEvent $event */
@@ -134,7 +135,6 @@ class MessageSender
     {
         $this->secretKeyProvider = $secretKeyProvider;
     }
-    
 
     /**
      * @return Message[]

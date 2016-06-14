@@ -49,7 +49,7 @@ class AfterUnpackMessageEvent extends Event
     /**
      * @return Message
      */
-    public function getMessageObject() : Message
+    public function getMessageObject()
     {
         return $this->messageObject;
     }
@@ -81,7 +81,7 @@ class AfterUnpackMessageEvent extends Event
     /**
      * @return \Exception
      */
-    public function getException() : \Exception
+    public function getException()
     {
         return $this->exception;
     }

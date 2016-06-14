@@ -400,7 +400,7 @@ class Message
     /**
      * @param mixed $rawData
      */
-    public function setRawData(mixed $rawData)
+    public function setRawData($rawData)
     {
         $this->rawData = $rawData;
     }

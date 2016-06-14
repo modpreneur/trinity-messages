@@ -3,9 +3,9 @@
 namespace Trinity\Bundle\MessagesBundle\Exception;
 
 /**
- * Class MissingMessageUserException
+ * Class InvalidMessageStatusException
  * @package Trinity\Bundle\MessagesBundle\Exception
  */
-class MissingMessageUserException extends \Exception
+class InvalidMessageStatusException extends \Exception
 {
 }
