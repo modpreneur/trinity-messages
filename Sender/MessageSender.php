@@ -7,6 +7,8 @@ use Trinity\Bundle\MessagesBundle\Event\Events;
 use Trinity\Bundle\MessagesBundle\Event\SendMessageEvent;
 use Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException;
 use Trinity\Bundle\MessagesBundle\Exception\MissingSendMessageListenerException;
+use Trinity\Bundle\MessagesBundle\Interfaces\MessageUserProviderInterface;
+use Trinity\Bundle\MessagesBundle\Interfaces\SecretKeyProviderInterface;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
@@ -25,14 +27,22 @@ class MessageSender
     /** @var  string */
     protected $senderIdentification;
 
+    /** @var  MessageUserProviderInterface */
+    protected $messageUserProvider;
+
+    /** @var  SecretKeyProviderInterface */
+    protected $secretKeyProvider;
+
     /**
      * MessageSender constructor.
      *
      * @param EventDispatcherInterface $eventDispatcher
-     * @param string                   $senderIdentification
+     * @param string $senderIdentification
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, string $senderIdentification)
-    {
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        string $senderIdentification
+    ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->senderIdentification = $senderIdentification;
     }
@@ -43,6 +53,8 @@ class MessageSender
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSendMessageListenerException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
      */
     public function sendAll()
     {
@@ -63,28 +75,66 @@ class MessageSender
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException
      */
     public function sendMessage(Message $message)
     {
-        if ($message->getSender() === null) {
-            $message->setSender($this->senderIdentification);
-        }
-
         if ($this->eventDispatcher->hasListeners(Events::SEND_MESSAGE) === false) {
             throw new MissingSendMessageListenerException(
                 'There is no listener for event ' . Events::SEND_MESSAGE . ' so nobody is able to send the message'
             );
         }
 
-        $event = new SendMessageEvent(
-            $message->pack(),
-            $message->getDestination(),
-            $message->getSender()
-        );
+        if ($message->getSender() === '') {
+            $message->setSender($this->senderIdentification);
+        }
+
+        if ($message->getUser() === '') {
+            $message->setUser($this->messageUserProvider->getUser($message));
+        }
+
+        if ($message->getSecretKey() === '') {
+            $message->setSecretKey($this->secretKeyProvider->getSecretKey($message->getClientId()));
+        }
+        
+        $event = new SendMessageEvent($message);
 
         /** @var SendMessageEvent $event */
         $this->eventDispatcher->dispatch(Events::SEND_MESSAGE, $event);
     }
+
+    /**
+     * @return MessageUserProviderInterface
+     */
+    public function getMessageUserProviderInterface()
+    {
+        return $this->messageUserProvider;
+    }
+
+    /**
+     * @param MessageUserProviderInterface $messageUserProvider
+     */
+    public function setMessageUserProvider(MessageUserProviderInterface $messageUserProvider)
+    {
+        $this->messageUserProvider = $messageUserProvider;
+    }
+
+    /**
+     * @return SecretKeyProviderInterface
+     */
+    public function getSecretKeyProvider()
+    {
+        return $this->secretKeyProvider;
+    }
+
+    /**
+     * @param SecretKeyProviderInterface $secretKeyProvider
+     */
+    public function setSecretKeyProvider($secretKeyProvider)
+    {
+        $this->secretKeyProvider = $secretKeyProvider;
+    }
+    
 
     /**
      * @return Message[]

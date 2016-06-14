@@ -3,4 +3,16 @@ services:
         class: Trinity\Bundle\MessagesBundle\Sender\MessageSender
         arguments:
             - "@event_dispatcher"
-            - "%trinity.messages.sender_identification"
+            - "%trinity.messages.sender_identification%"
+
+    trinity.messages.message_reader:
+        class: Trinity\Bundle\MessagesBundle\Reader\MessageReader
+        arguments:
+            - "@event_dispatcher"
+
+    triniry.messages.message_listener:
+        class: Trinity\Bundle\MessagesBundle\EventListener\MessageListener
+        arguments:
+            - "@trinity.messages.message_reader"
+        tags:
+            - { name: kernel.event_listener, event: trinity.messages.unpackMessage, method: onUnpackMessageEvent}

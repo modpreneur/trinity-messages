@@ -12,7 +12,7 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
  * This event is dispatched when reading of a message failed.
  * This can by because of malformed data, missing credentials of invalid message format.
  */
-class ReadMessageError extends Event
+class ReadMessageErrorEvent extends Event
 {
     /** @var  string */
     protected $messageJson;
@@ -34,7 +34,7 @@ class ReadMessageError extends Event
      * @param \Exception $exception
      * @param Message    $message
      */
-    public function __construct(string $messageJson, string $source, \Exception $exception, Message $message)
+    public function __construct(string $messageJson, string $source, \Exception $exception, Message $message = null)
     {
         $this->messageJson = $messageJson;
         $this->source = $source;

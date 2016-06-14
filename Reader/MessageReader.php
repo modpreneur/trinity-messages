@@ -1,15 +1,16 @@
 <?php
 
-namespace Trinity\Bundle\MessagesBundle\Message;
+namespace Trinity\Bundle\MessagesBundle\Reader;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Trinity\Bundle\MessagesBundle\Event\AfterUnpackMessageEvent;
 use Trinity\Bundle\MessagesBundle\Event\Events;
-use Trinity\Bundle\MessagesBundle\Event\ReadMessageError;
+use Trinity\Bundle\MessagesBundle\Event\ReadMessageErrorEvent;
 use Trinity\Bundle\MessagesBundle\Event\ReadMessageEvent;
 use Trinity\Bundle\MessagesBundle\Exception\HashMismatchException;
 use Trinity\Bundle\MessagesBundle\Exception\MessageNotProcessedException;
 use Trinity\Bundle\MessagesBundle\Interfaces\SecretKeyProviderInterface;
+use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class MessageReader
@@ -95,7 +96,7 @@ class MessageReader
     /**
      * @param SecretKeyProviderInterface $secretKeyProvider
      */
-    public function setClientSecretProvider(SecretKeyProviderInterface $secretKeyProvider)
+    public function setSecretKeyProvider(SecretKeyProviderInterface $secretKeyProvider)
     {
         $this->secretKeyProvider = $secretKeyProvider;
     }
@@ -173,9 +174,9 @@ class MessageReader
      * @param \Exception $exception
      * @param Message    $message
      */
-    public function dispatchErrorEvent(string $messageJson, string $source, \Exception $exception, Message $message)
+    public function dispatchErrorEvent(string $messageJson, string $source, \Exception $exception, Message $message = null)
     {
-        $event = new ReadMessageError($messageJson, $source, $exception, $message);
+        $event = new ReadMessageErrorEvent($messageJson, $source, $exception, $message);
         $this->eventDispatcher->dispatch(Events::READ_MESSAGE_ERROR, $event);
     }
 }

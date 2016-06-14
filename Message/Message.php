@@ -33,13 +33,13 @@ class Message
     protected $uid;
 
     /** @var string */
-    protected $clientId;
+    protected $clientId = '';
 
     /** @var  string */
-    protected $secretKey;
+    protected $secretKey = '';
 
     /** @var  string */
-    protected $jsonData;
+    protected $jsonData = '';
 
     /** @var  mixed Data in raw format(numbers, objects, arrays) */
     protected $rawData;
@@ -48,22 +48,22 @@ class Message
     protected $createdOn;
 
     /** @var  string */
-    protected $hash;
+    protected $hash = '';
 
     /** @var  string */
-    protected $type;
+    protected $type = '';
 
     /** @var  string */
-    protected $parentMessageUid;
+    protected $parentMessageUid = '';
 
     /** @var  string */
-    protected $sender;
+    protected $sender = '';
 
     /** @var  string */
-    protected $destination;
+    protected $destination = '';
 
     /** @var  string Identification of the user who sent this message. */
-    protected $user;
+    protected $user = '';
 
     /**
      * Message constructor.
@@ -73,8 +73,6 @@ class Message
         $this->type = self::MESSAGE_TYPE;
         $this->uid = uniqid('', true);
         $this->createdOn = (new \DateTime('now'))->getTimestamp();
-        $this->jsonData = '';
-        $this->parentMessageUid = '';
     }
 
     /**
@@ -134,7 +132,7 @@ class Message
      * @param bool $getAsArray
      *
      * @return string
-     * 
+     *
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException
      * @throws MissingClientIdException
@@ -143,19 +141,19 @@ class Message
      */
     public function pack(bool $getAsArray = false) : string
     {
-        if ($this->type === null) {
+        if ($this->type === '') {
             throw new MissingMessageTypeException('Trying to pack a message without type');
         }
         
-        if ($this->user === null) {
+        if ($this->user === '') {
             throw new MissingMessageUserException();
         }
 
-        if ($this->getDestination() === null) {
+        if ($this->destination === '') {
             throw new MissingMessageDestinationException('Message does not have destination');
         }
 
-        if ($this->jsonData === null) {
+        if ($this->jsonData === '') {
             $this->jsonData = \json_encode($this->rawData);
         }
 

@@ -2,6 +2,7 @@
 
 namespace Trinity\Bundle\MessagesBundle\Event;
 
+use Symfony\Component\EventDispatcher\Event;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
@@ -11,7 +12,7 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
  * This event id dispatched when the message was unpacked either with or without error.
  * This event is meant to be used for logging all received message.
  */
-class AfterUnpackMessageEvent
+class AfterUnpackMessageEvent extends Event
 {
     /** @var  Message */
     protected $messageObject;

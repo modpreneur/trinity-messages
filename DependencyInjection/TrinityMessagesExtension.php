@@ -10,6 +10,7 @@ namespace Trinity\Bundle\MessagesBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -40,5 +41,23 @@ class TrinityMessagesExtension extends Extension
             'trinity.messages.sender_identification',
             $config['sender_identification']
         );
+
+        $container->getDefinition('trinity.messages.message_sender')
+            ->addMethodCall(
+                'setMessageUserProvider',
+                [new Reference($config['message_user_provider'])]
+            );
+
+        $container->getDefinition('trinity.messages.message_reader')
+            ->addMethodCall(
+                'setSecretKeyProvider',
+                [new Reference($config['secret_key_provider'])]
+            );
+
+        $container->getDefinition('trinity.messages.message_sender')
+            ->addMethodCall(
+                'setSecretKeyProvider',
+                [new Reference($config['secret_key_provider'])]
+            );
     }
 }

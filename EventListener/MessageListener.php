@@ -3,7 +3,7 @@
 namespace Trinity\Bundle\MessagesBundle\EventListener;
 
 use Trinity\Bundle\MessagesBundle\Event\UnpackMessageEvent;
-use Trinity\Bundle\MessagesBundle\Message\MessageReader;
+use Trinity\Bundle\MessagesBundle\Reader\MessageReader;
 
 /**
  * Class MessageListener
@@ -13,6 +13,16 @@ class MessageListener
 {
     /** @var  MessageReader */
     protected $messageReader;
+
+    /**
+     * MessageListener constructor.
+     *
+     * @param MessageReader $messageReader
+     */
+    public function __construct(MessageReader $messageReader)
+    {
+        $this->messageReader = $messageReader;
+    }
 
     /**
      * @param UnpackMessageEvent $event

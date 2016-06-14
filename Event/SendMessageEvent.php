@@ -3,41 +3,31 @@
 namespace Trinity\Bundle\MessagesBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
+use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class SendMessageEvent
  * @package Trinity\Bundle\MessagesBundle\Event
  *
- * It could have one property of class Message but...
- * This event is meant to be listened by low level class which should not know(or can not know) about the Message object
+ * This event is used to listened by class which is responsible of sending messages.
  */
 class SendMessageEvent extends Event
 {
-    /** @var string */
+    /** @var Message */
     protected $message;
-
-    /** @var  string */
-    protected $destination;
-
-    /** @var  string */
-    protected $source;
 
     /**
      * SendMessageEvent constructor.
      *
-     * @param string $message
-     * @param string $destination
-     * @param string $source
+     * @param Message $message
      */
-    public function __construct(string $message, string $destination, string $source)
+    public function __construct(Message $message)
     {
         $this->message = $message;
-        $this->destination = $destination;
-        $this->source = $source;
     }
 
     /**
-     * @return string
+     * @return Message
      */
     public function getMessage()
     {
@@ -45,42 +35,10 @@ class SendMessageEvent extends Event
     }
 
     /**
-     * @param string $message
+     * @param Message $message
      */
     public function setMessage($message)
     {
         $this->message = $message;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDestination()
-    {
-        return $this->destination;
-    }
-
-    /**
-     * @param string $destination
-     */
-    public function setDestination($destination)
-    {
-        $this->destination = $destination;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * @param string $source
-     */
-    public function setSource($source)
-    {
-        $this->source = $source;
     }
 }
