@@ -72,7 +72,7 @@ class Message
     {
         $this->type = self::MESSAGE_TYPE;
         $this->uid = uniqid('', true);
-        $this->createdOn = (new \DateTime('now'))->getTimestamp();
+        $this->createdOn = new \DateTime('now');
     }
 
     /**
@@ -99,7 +99,7 @@ class Message
                     $this->uid,
                     $this->clientId,
                     json_encode($this->jsonData),
-                    $this->createdOn,
+                    $this->createdOn->getTimestamp(),
                     $this->secretKey,
                     $this->type,
                     $this->parentMessageUid,
@@ -191,7 +191,7 @@ class Message
         $messageObject->type = $messageArray[self::MESSAGE_TYPE_KEY];
         $messageObject->uid = $messageArray[self::UID_KEY];
         $messageObject->clientId = $messageArray[self::CLIENT_ID_KEY];
-        $messageObject->createdOn = $messageArray[self::CREATED_ON_KEY];
+        $messageObject->createdOn = (new \DateTime())->setTimestamp((int)$messageArray[self::CREATED_ON_KEY]);
         $messageObject->hash = $messageArray[self::HASH_KEY];
         $messageObject->jsonData = $messageArray[self::DATA_KEY];
         $messageObject->rawData = \json_decode($messageObject->jsonData, true);
@@ -226,7 +226,7 @@ class Message
             self::MESSAGE_TYPE_KEY => $this->type,
             self::UID_KEY => $this->uid,
             self::CLIENT_ID_KEY => $this->clientId,
-            self::CREATED_ON_KEY => $this->createdOn,
+            self::CREATED_ON_KEY => $this->createdOn->getTimestamp(),
             self::HASH_KEY => $this->hash,
             self::DATA_KEY => $this->jsonData,
             self::PARENT_MESSAGE_UID_KEY => $this->parentMessageUid,
@@ -337,7 +337,7 @@ class Message
             $this->createdOn = $createdOn;
         } elseif (is_int($createdOn)) {
             $this->createdOn = new \DateTime();
-            $this->createdOn->setTimestamp($createdOn);
+            $this->createdOn->setTimestamp((int)$createdOn);
         }
     }
 
