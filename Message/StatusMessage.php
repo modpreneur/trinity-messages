@@ -75,7 +75,7 @@ class StatusMessage extends Message
      */
     public function isOkay() : bool
     {
-        return $this->rawData === 'ok';
+        return $this->rawData[self::STATUS_KEY] === 'ok';
     }
 
 
