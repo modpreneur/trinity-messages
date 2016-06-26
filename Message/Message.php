@@ -20,7 +20,7 @@ class Message
     const DATA_KEY = 'data';
     const HASH_KEY = 'hash';
     const CLIENT_ID_KEY = 'clientId';
-    const CREATED_ON_KEY = 'createdAt';
+    const CREATED_AT_KEY = 'createdAt';
     const MESSAGE_TYPE_KEY = 'messageType';
     const PARENT_MESSAGE_UID_KEY = 'parent';
     const SENDER_KEY = 'sender';
@@ -191,7 +191,7 @@ class Message
         $messageObject->type = $messageArray[self::MESSAGE_TYPE_KEY];
         $messageObject->uid = $messageArray[self::UID_KEY];
         $messageObject->clientId = $messageArray[self::CLIENT_ID_KEY];
-        $messageObject->createdAt = (int)$messageArray[self::CREATED_ON_KEY];
+        $messageObject->createdAt = (int)$messageArray[self::CREATED_AT_KEY];
         $messageObject->hash = $messageArray[self::HASH_KEY];
         $messageObject->jsonData = $messageArray[self::DATA_KEY];
         $messageObject->rawData = \json_decode($messageObject->jsonData, true);
@@ -226,7 +226,7 @@ class Message
             self::MESSAGE_TYPE_KEY => $this->type,
             self::UID_KEY => $this->uid,
             self::CLIENT_ID_KEY => $this->clientId,
-            self::CREATED_ON_KEY => $this->createdAt,
+            self::CREATED_AT_KEY => $this->createdAt,
             self::HASH_KEY => $this->hash,
             self::DATA_KEY => $this->jsonData,
             self::PARENT_MESSAGE_UID_KEY => $this->parentMessageUid,
