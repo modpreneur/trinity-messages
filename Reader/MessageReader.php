@@ -69,6 +69,8 @@ class MessageReader
         } catch (\Exception $exception) {
             //but there is dispatching of error event - this errors are mostly due to unpacking message
             $this->dispatchErrorEvent($messageJson, $source, $exception, $messageObject);
+
+            throw $exception;
         }
     }
 
