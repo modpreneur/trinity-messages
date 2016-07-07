@@ -9,7 +9,7 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
  * Class SendMessageEvent
  * @package Trinity\Bundle\MessagesBundle\Event
  *
- * This event is used to listened by class which is responsible of sending messages.
+ * This event is used to listened by lower level class which is responsible for sending messages.
  */
 class SendMessageEvent extends Event
 {

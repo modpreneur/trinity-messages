@@ -8,6 +8,8 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
 /**
  * Class BeforeMessagePublishEvent
  * @package Trinity\Bundle\MessagesBundle\Event
+ *
+ * This event is not dispatched anywhere but it can be used by lower level class.
  */
 class BeforeMessagePublishEvent extends Event
 {

@@ -9,7 +9,7 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
  * Class ReadMessageEvent
  * @package Trinity\Bundle\MessagesBundle\Event
  *
- * Is dispatched when the message is successfully unpacked and ready to be read by user of this package.
+ * Is dispatched when the message is successfully unpacked and ready to be read by user of this bundle.
  */
 class ReadMessageEvent extends Event
 {

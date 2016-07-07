@@ -45,6 +45,10 @@ class MessageReader
      * @param string $source Source of the message(rabbit queue, API endpoint)
      *
      * @throws \Trinity\Bundle\MessagesBundle\Exception\DataNotValidJsonException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MessageNotProcessedException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\HashMismatchException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      */
     public function read(string $messageJson, string $source)
     {
