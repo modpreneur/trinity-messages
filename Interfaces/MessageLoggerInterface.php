@@ -64,20 +64,4 @@ interface MessageLoggerInterface
         string $status,
         string $statusMessage
     );
-
-
-    //todo: move to trinity/bunny-bundle! messages knows jack shit about bunny!
-//    /**
-//     * @param \Bunny\Message $message      Bunny\Message(!) to be logged
-//     * @param string         $errorMessage Error message string
-//     * @param string         $source
-//     *
-//     * @return
-//     */
-//    public function logMessageConsumeError(
-//        \Bunny\Message $message,
-//        string $source,
-//        string $errorMessage
-//    );
-
 }
