@@ -56,7 +56,7 @@ class MessageSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            UnpackMessageEvent::class => 'onUnpackMessageEvent'
+            UnpackMessageEvent::NAME => 'onUnpackMessageEvent'
         ];
     }
 }
