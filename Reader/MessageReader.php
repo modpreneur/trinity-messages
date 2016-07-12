@@ -4,7 +4,6 @@ namespace Trinity\Bundle\MessagesBundle\Reader;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Trinity\Bundle\MessagesBundle\Event\AfterUnpackMessageEvent;
-use Trinity\Bundle\MessagesBundle\Event\Events;
 use Trinity\Bundle\MessagesBundle\Event\ReadMessageErrorEvent;
 use Trinity\Bundle\MessagesBundle\Event\ReadMessageEvent;
 use Trinity\Bundle\MessagesBundle\Exception\HashMismatchException;
@@ -63,7 +62,7 @@ class MessageReader
             //now the $messageObject is successfully unpacked
             $event = new ReadMessageEvent($messageObject, $messageJson, $source);
             /** @var ReadMessageEvent $event */
-            $event = $this->eventDispatcher->dispatch(Events::READ_MESSAGE, $event);
+            $event = $this->eventDispatcher->dispatch(ReadMessageEvent::NAME, $event);
             $messageObject = $event->getMessage();
 
             if ($this->requireMessageProcessing === true) {
@@ -135,7 +134,7 @@ class MessageReader
     ) {
         $event = new AfterUnpackMessageEvent($messageJson, $source, $messageObject, $exception);
 
-        $this->eventDispatcher->dispatch(Events::AFTER_MESSAGE_UNPACKED, $event);
+        $this->eventDispatcher->dispatch(AfterUnpackMessageEvent::NAME, $event);
     }
 
     /**
@@ -187,6 +186,6 @@ class MessageReader
         Message $message = null
     ) {
         $event = new ReadMessageErrorEvent($messageJson, $source, $exception, $message);
-        $this->eventDispatcher->dispatch(Events::READ_MESSAGE_ERROR, $event);
+        $this->eventDispatcher->dispatch(ReadMessageErrorEvent::NAME, $event);
     }
 }

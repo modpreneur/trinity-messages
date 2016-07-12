@@ -2,18 +2,18 @@
 
 namespace Trinity\Bundle\MessagesBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Trinity\Bundle\MessagesBundle\Message\StatusMessage;
 
 /**
  * Class StatusMessageEvent
  * @package Trinity\Bundle\MessagesBundle\Event
  */
-class StatusMessageEvent extends Event
+class StatusMessageEvent extends MessageEvent
 {
+    const NAME = 'trinity.messages.statusMessageEvent';
+    
     /** @var  StatusMessage */
     protected $statusMessage;
-
 
     /**
      * StatusMessageEvent constructor.
@@ -25,7 +25,6 @@ class StatusMessageEvent extends Event
         $this->statusMessage = $statusMessage;
     }
 
-
     /**
      * @return StatusMessage
      */
@@ -33,7 +32,6 @@ class StatusMessageEvent extends Event
     {
         return $this->statusMessage;
     }
-
 
     /**
      * @param StatusMessage $statusMessage

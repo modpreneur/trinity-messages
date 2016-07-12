@@ -3,7 +3,6 @@
 namespace Trinity\Bundle\MessagesBundle\Sender;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Trinity\Bundle\MessagesBundle\Event\Events;
 use Trinity\Bundle\MessagesBundle\Event\SendMessageEvent;
 use Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException;
 use Trinity\Bundle\MessagesBundle\Exception\MissingSendMessageListenerException;
@@ -80,9 +79,9 @@ class MessageSender
      */
     public function sendMessage(Message $message)
     {
-        if ($this->eventDispatcher->hasListeners(Events::SEND_MESSAGE) === false) {
+        if ($this->eventDispatcher->hasListeners(SendMessageEvent::NAME) === false) {
             throw new MissingSendMessageListenerException(
-                'There is no listener for event ' . Events::SEND_MESSAGE . ' so nobody is able to send the message'
+                'There is no listener for event ' . SendMessageEvent::NAME . ' so nobody is able to send the message'
             );
         }
 
@@ -101,7 +100,7 @@ class MessageSender
         $event = new SendMessageEvent($message);
 
         /** @var SendMessageEvent $event */
-        $this->eventDispatcher->dispatch(Events::SEND_MESSAGE, $event);
+        $this->eventDispatcher->dispatch(SendMessageEvent::NAME, $event);
     }
 
     /**

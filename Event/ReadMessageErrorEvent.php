@@ -2,7 +2,6 @@
 
 namespace Trinity\Bundle\MessagesBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
@@ -12,8 +11,10 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
  * This event is dispatched when reading of a message failed.
  * This can by because of malformed data, missing credentials of invalid message format.
  */
-class ReadMessageErrorEvent extends Event
+class ReadMessageErrorEvent extends MessageEvent
 {
+    const NAME = 'trinity.messages.readMessageError';
+    
     /** @var  string */
     protected $messageJson;
 

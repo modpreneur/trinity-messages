@@ -2,15 +2,16 @@
 
 namespace Trinity\Bundle\MessagesBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class SetMessageStatusEvent
  * @package Trinity\Bundle\MessagesBundle\Event
  */
-class SetMessageStatusEvent extends Event
+class SetMessageStatusEvent extends MessageEvent
 {
+    const NAME = 'trinity.messages.setMessageStatus';
+    
     /** @var  Message */
     protected $message;
 
@@ -19,7 +20,6 @@ class SetMessageStatusEvent extends Event
 
     /** @var  string */
     protected $status;
-
 
     /**
      * SetMessageStatusEvent constructor.
@@ -35,7 +35,6 @@ class SetMessageStatusEvent extends Event
         $this->status = $status;
     }
 
-
     /**
      * @return string
      */
@@ -43,7 +42,6 @@ class SetMessageStatusEvent extends Event
     {
         return $this->statusMessage;
     }
-
 
     /**
      * @param string $statusMessage
@@ -53,7 +51,6 @@ class SetMessageStatusEvent extends Event
         $this->statusMessage = $statusMessage;
     }
 
-
     /**
      * @return Message
      */
@@ -61,7 +58,6 @@ class SetMessageStatusEvent extends Event
     {
         return $this->message;
     }
-
 
     /**
      * @param Message $message
@@ -71,7 +67,6 @@ class SetMessageStatusEvent extends Event
         $this->message = $message;
     }
 
-
     /**
      * @return string
      */
@@ -79,7 +74,6 @@ class SetMessageStatusEvent extends Event
     {
         return $this->status;
     }
-
 
     /**
      * @param string $status

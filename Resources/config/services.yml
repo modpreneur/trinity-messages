@@ -10,9 +10,9 @@ services:
         arguments:
             - "@event_dispatcher"
 
-    triniry.messages.message_listener:
-        class: Trinity\Bundle\MessagesBundle\EventListener\MessageListener
+    trinity.messages.message_subscriber:
+        class: Trinity\Bundle\MessagesBundle\EventListener\MessageSubscriber
         arguments:
             - "@trinity.messages.message_reader"
         tags:
-            - { name: kernel.event_listener, event: trinity.messages.unpackMessage, method: onUnpackMessageEvent}
+            - { name: kernel.event_subscriber }

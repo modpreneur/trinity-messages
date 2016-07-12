@@ -2,7 +2,6 @@
 
 namespace Trinity\Bundle\MessagesBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
@@ -11,8 +10,10 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
  *
  * This event is used to listened by lower level class which is responsible for sending messages.
  */
-class SendMessageEvent extends Event
+class SendMessageEvent extends MessageEvent
 {
+    const NAME = 'trinity.messages.sendMessage';
+    
     /** @var Message */
     protected $message;
 

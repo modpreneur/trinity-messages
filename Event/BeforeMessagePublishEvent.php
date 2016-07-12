@@ -2,7 +2,6 @@
 
 namespace Trinity\Bundle\MessagesBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
@@ -11,8 +10,10 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
  *
  * This event is not dispatched anywhere but it can be used by lower level class.
  */
-class BeforeMessagePublishEvent extends Event
+class BeforeMessagePublishEvent extends MessageEvent
 {
+    const NAME = 'trinity.messages.beforeMessagePublish';
+    
     /** @var  Message */
     protected $message;
 

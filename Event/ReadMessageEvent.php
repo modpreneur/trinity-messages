@@ -2,7 +2,6 @@
 
 namespace Trinity\Bundle\MessagesBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
@@ -11,8 +10,10 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
  *
  * Is dispatched when the message is successfully unpacked and ready to be read by user of this bundle.
  */
-class ReadMessageEvent extends Event
+class ReadMessageEvent extends MessageEvent
 {
+    const NAME = 'trinity.messages.readMessage';
+
     /** @var  Message */
     protected $message;
 
