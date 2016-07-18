@@ -98,7 +98,7 @@ class AfterUnpackMessageEvent extends MessageEvent
     /**
      * @return string
      */
-    public function getSource()
+    public function getSource() : string
     {
         return $this->source;
     }
@@ -106,7 +106,7 @@ class AfterUnpackMessageEvent extends MessageEvent
     /**
      * @param string $source
      */
-    public function setSource($source)
+    public function setSource(string $source)
     {
         $this->source = $source;
     }

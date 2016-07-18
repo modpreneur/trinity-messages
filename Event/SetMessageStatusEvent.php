@@ -11,7 +11,7 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
 class SetMessageStatusEvent extends MessageEvent
 {
     const NAME = 'trinity.messages.setMessageStatus';
-    
+
     /** @var  Message */
     protected $message;
 
@@ -38,7 +38,7 @@ class SetMessageStatusEvent extends MessageEvent
     /**
      * @return string
      */
-    public function getStatusMessage()
+    public function getStatusMessage() : string
     {
         return $this->statusMessage;
     }
@@ -46,7 +46,7 @@ class SetMessageStatusEvent extends MessageEvent
     /**
      * @param string $statusMessage
      */
-    public function setStatusMessage($statusMessage)
+    public function setStatusMessage(string $statusMessage)
     {
         $this->statusMessage = $statusMessage;
     }

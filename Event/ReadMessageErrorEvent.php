@@ -46,7 +46,7 @@ class ReadMessageErrorEvent extends MessageEvent
     /**
      * @return string
      */
-    public function getMessageJson()
+    public function getMessageJson(): string
     {
         return $this->messageJson;
     }
@@ -54,7 +54,7 @@ class ReadMessageErrorEvent extends MessageEvent
     /**
      * @param string $messageJson
      */
-    public function setMessageJson($messageJson)
+    public function setMessageJson(string $messageJson)
     {
         $this->messageJson = $messageJson;
     }
@@ -62,7 +62,7 @@ class ReadMessageErrorEvent extends MessageEvent
     /**
      * @return string
      */
-    public function getSource()
+    public function getSource(): string
     {
         return $this->source;
     }
@@ -70,7 +70,7 @@ class ReadMessageErrorEvent extends MessageEvent
     /**
      * @param string $source
      */
-    public function setSource($source)
+    public function setSource(string $source)
     {
         $this->source = $source;
     }
@@ -78,7 +78,7 @@ class ReadMessageErrorEvent extends MessageEvent
     /**
      * @return \Exception
      */
-    public function getException()
+    public function getException(): \Exception
     {
         return $this->exception;
     }
@@ -86,13 +86,13 @@ class ReadMessageErrorEvent extends MessageEvent
     /**
      * @param \Exception $exception
      */
-    public function setException($exception)
+    public function setException(\Exception $exception)
     {
         $this->exception = $exception;
     }
 
     /**
-     * @return Message
+     * @return Message|null
      */
     public function getMessage()
     {
@@ -100,9 +100,9 @@ class ReadMessageErrorEvent extends MessageEvent
     }
 
     /**
-     * @param Message $message
+     * @param Message $message|null
      */
-    public function setMessage($message)
+    public function setMessage(Message $message = null)
     {
         $this->message = $message;
     }

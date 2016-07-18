@@ -30,7 +30,7 @@ class SendMessageEvent extends MessageEvent
     /**
      * @return Message
      */
-    public function getMessage()
+    public function getMessage(): Message
     {
         return $this->message;
     }
@@ -38,7 +38,7 @@ class SendMessageEvent extends MessageEvent
     /**
      * @param Message $message
      */
-    public function setMessage($message)
+    public function setMessage(Message $message)
     {
         $this->message = $message;
     }

@@ -34,7 +34,7 @@ class UnpackMessageEvent extends MessageEvent
     /**
      * @return string
      */
-    public function getMessageJson()
+    public function getMessageJson(): string
     {
         return $this->messageJson;
     }
@@ -42,7 +42,7 @@ class UnpackMessageEvent extends MessageEvent
     /**
      * @param string $messageJson
      */
-    public function setMessageJson($messageJson)
+    public function setMessageJson(string $messageJson)
     {
         $this->messageJson = $messageJson;
     }
@@ -50,7 +50,7 @@ class UnpackMessageEvent extends MessageEvent
     /**
      * @return string
      */
-    public function getSource()
+    public function getSource(): string
     {
         return $this->source;
     }
@@ -58,7 +58,7 @@ class UnpackMessageEvent extends MessageEvent
     /**
      * @param string $source
      */
-    public function setSource($source)
+    public function setSource(string $source)
     {
         $this->source = $source;
     }

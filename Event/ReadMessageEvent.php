@@ -43,7 +43,7 @@ class ReadMessageEvent extends MessageEvent
     /**
      * @return Message
      */
-    public function getMessage()
+    public function getMessage(): Message
     {
         return $this->message;
     }
@@ -51,7 +51,7 @@ class ReadMessageEvent extends MessageEvent
     /**
      * @param Message $message
      */
-    public function setMessage($message)
+    public function setMessage(Message $message)
     {
         $this->message = $message;
     }
@@ -59,7 +59,7 @@ class ReadMessageEvent extends MessageEvent
     /**
      * @return string
      */
-    public function getMessageJson()
+    public function getMessageJson(): string
     {
         return $this->messageJson;
     }
@@ -67,7 +67,7 @@ class ReadMessageEvent extends MessageEvent
     /**
      * @param string $messageJson
      */
-    public function setMessageJson($messageJson)
+    public function setMessageJson(string $messageJson)
     {
         $this->messageJson = $messageJson;
     }
@@ -75,7 +75,7 @@ class ReadMessageEvent extends MessageEvent
     /**
      * @return string
      */
-    public function getSource()
+    public function getSource(): string
     {
         return $this->source;
     }
@@ -83,7 +83,7 @@ class ReadMessageEvent extends MessageEvent
     /**
      * @param string $source
      */
-    public function setSource($source)
+    public function setSource(string $source)
     {
         $this->source = $source;
     }
@@ -91,7 +91,7 @@ class ReadMessageEvent extends MessageEvent
     /**
      * @return boolean
      */
-    public function isEventProcessed()
+    public function isEventProcessed(): bool
     {
         return $this->eventProcessed;
     }
@@ -99,7 +99,7 @@ class ReadMessageEvent extends MessageEvent
     /**
      * @param boolean $eventProcessed
      */
-    public function setEventProcessed($eventProcessed)
+    public function setEventProcessed(bool $eventProcessed)
     {
         $this->eventProcessed = $eventProcessed;
     }
