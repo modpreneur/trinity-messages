@@ -9,7 +9,6 @@ namespace Trinity\Bundle\MessagesBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-
 /**
  * Class DriverCompilerPass.
  */
@@ -20,6 +19,5 @@ class DriverCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        
     }
 }

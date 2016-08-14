@@ -4,7 +4,6 @@ namespace Trinity\Bundle\MessagesBundle\Event;
 
 /**
  * Class UnpackMessageEvent
- * @package Trinity\Bundle\MessagesBundle\Event
  *
  * This event is dispatched by the lower level class which is responsible for sending strings representing messages.
  * It is the entrypoint when reading a message.
@@ -12,7 +11,7 @@ namespace Trinity\Bundle\MessagesBundle\Event;
 class UnpackMessageEvent extends MessageEvent
 {
     const NAME = 'trinity.messages.unpackMessage';
-    
+
     /** @var  string */
     protected $messageJson;
 

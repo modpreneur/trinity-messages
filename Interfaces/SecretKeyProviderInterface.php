@@ -3,8 +3,7 @@
 namespace Trinity\Bundle\MessagesBundle\Interfaces;
 
 /**
- * Interface SecretKeyProviderInterface
- * @package Trinity\Bundle\MessagesBundle\Interfaces
+ * Interface SecretKeyProviderInterface.
  */
 interface SecretKeyProviderInterface
 {

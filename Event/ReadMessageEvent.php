@@ -6,7 +6,6 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class ReadMessageEvent
- * @package Trinity\Bundle\MessagesBundle\Event
  *
  * Is dispatched when the message is successfully unpacked and ready to be read by user of this bundle.
  */
@@ -89,7 +88,7 @@ class ReadMessageEvent extends MessageEvent
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEventProcessed(): bool
     {
@@ -97,7 +96,7 @@ class ReadMessageEvent extends MessageEvent
     }
 
     /**
-     * @param boolean $eventProcessed
+     * @param bool $eventProcessed
      */
     public function setEventProcessed(bool $eventProcessed)
     {

@@ -5,11 +5,9 @@ namespace Trinity\Bundle\MessagesBundle\Message;
 use Trinity\Bundle\MessagesBundle\Exception\InvalidMessageStatusException;
 
 /**
- * Class StatusMessage
+ * Class StatusMessage.
  *
  * Is used to confirm success or failure of the parent message
- *
- * @package Trinity\Bundle\MessagesBundle\Message
  */
 class StatusMessage extends Message
 {
@@ -20,7 +18,6 @@ class StatusMessage extends Message
     const STATUS_ERROR = 'error';
 
     const MESSAGE_TYPE = 'status';
-
 
     /**
      * StatusMessage constructor.
@@ -53,7 +50,6 @@ class StatusMessage extends Message
         return parent::pack($getAsArray);
     }
 
-
     /**
      * @param Message $message
      *
@@ -61,15 +57,14 @@ class StatusMessage extends Message
      */
     public static function createFromMessage(Message $message) : self
     {
-        $statusMessage = new self;
+        $statusMessage = new self();
         $message->copyTo($statusMessage);
 
         return $statusMessage;
     }
 
-
     /**
-     * Was the parent message ok
+     * Was the parent message ok.
      *
      * @return bool
      */
@@ -77,7 +72,6 @@ class StatusMessage extends Message
     {
         return $this->rawData[self::STATUS_KEY] === 'ok';
     }
-
 
     /**
      * @param string $statusMessage
@@ -88,7 +82,6 @@ class StatusMessage extends Message
         $this->rawData[self::STATUS_MESSAGE_KEY] = $statusMessage;
     }
 
-
     /**
      * @param string $errorMessage
      */
@@ -98,7 +91,6 @@ class StatusMessage extends Message
         $this->rawData[self::STATUS_MESSAGE_KEY] = $errorMessage;
     }
 
-
     /**
      * @return string
      */
@@ -107,7 +99,6 @@ class StatusMessage extends Message
         return $this->rawData[self::STATUS_MESSAGE_KEY];
     }
 
-
     /**
      * @param string $statusMessage
      */
@@ -115,7 +106,6 @@ class StatusMessage extends Message
     {
         $this->rawData[self::STATUS_MESSAGE_KEY] = $statusMessage;
     }
-
 
     /**
      * @return string
@@ -134,8 +124,8 @@ class StatusMessage extends Message
     {
         if (!($status === self::STATUS_OK || $status === self::STATUS_ERROR)) {
             throw new InvalidMessageStatusException(
-                "Status '$status' is not valid. Choose one from '" .
-                self::STATUS_ERROR . "' or '" . self::STATUS_OK . "'"
+                "Status '$status' is not valid. Choose one from '".
+                self::STATUS_ERROR."' or '".self::STATUS_OK."'"
             );
         }
 

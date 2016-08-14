@@ -5,8 +5,7 @@ namespace Trinity\Bundle\MessagesBundle\Event;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
- * Class SetMessageStatusEvent
- * @package Trinity\Bundle\MessagesBundle\Event
+ * Class SetMessageStatusEvent.
  */
 class SetMessageStatusEvent extends MessageEvent
 {

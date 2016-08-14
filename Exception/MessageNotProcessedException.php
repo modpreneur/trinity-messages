@@ -5,8 +5,7 @@ namespace Trinity\Bundle\MessagesBundle\Exception;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
- * Class MessageNotProcessedException
- * @package Trinity\Bundle\MessagesBundle\Exception
+ * Class MessageNotProcessedException.
  */
 class MessageNotProcessedException extends \Exception
 {
@@ -29,7 +28,7 @@ class MessageNotProcessedException extends \Exception
     public function setMessageObject(Message $messageObject)
     {
         $this->messageObject = $messageObject;
+
         return $this;
     }
 }
-

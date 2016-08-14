@@ -3,8 +3,7 @@
 namespace Trinity\Bundle\MessagesBundle\Exception;
 
 /**
- * Class MissingMessageDestinationException
- * @package Trinity\Bundle\MessagesBundle\Exception
+ * Class MissingMessageDestinationException.
  */
 class MissingMessageDestinationException extends \Exception
 {

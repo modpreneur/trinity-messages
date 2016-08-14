@@ -11,9 +11,7 @@ use Trinity\Bundle\MessagesBundle\Interfaces\SecretKeyProviderInterface;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
- * Class MessageSender
- *
- * @package Trinity\Bundle\MessagesBundle\Notification
+ * Class MessageSender.
  */
 class MessageSender
 {
@@ -66,7 +64,7 @@ class MessageSender
     }
 
     /**
-     * Send one message
+     * Send one message.
      *
      * @param Message $message
      *
@@ -81,7 +79,7 @@ class MessageSender
     {
         if ($this->eventDispatcher->hasListeners(SendMessageEvent::NAME) === false) {
             throw new MissingSendMessageListenerException(
-                'There is no listener for event ' . SendMessageEvent::NAME . ' so nobody is able to send the message'
+                'There is no listener for event '.SendMessageEvent::NAME.' so nobody is able to send the message'
             );
         }
 
@@ -99,7 +97,7 @@ class MessageSender
 
         $event = new SendMessageEvent($message);
 
-        /** @var SendMessageEvent $event */
+        /* @var SendMessageEvent $event */
         $this->eventDispatcher->dispatch(SendMessageEvent::NAME, $event);
     }
 
@@ -160,7 +158,7 @@ class MessageSender
     }
 
     /**
-     * Clear queued messages
+     * Clear queued messages.
      */
     public function clear()
     {

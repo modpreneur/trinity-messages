@@ -29,6 +29,11 @@ class MessageSubscriber implements EventSubscriberInterface
      * @param UnpackMessageEvent $event
      *
      * @throws \Trinity\Bundle\MessagesBundle\Exception\DataNotValidJsonException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MessageNotProcessedException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
+     * @throws \Trinity\Bundle\MessagesBundle\Exception\HashMismatchException
+     * @throws \Exception
      */
     public function onUnpackMessageEvent(UnpackMessageEvent $event)
     {

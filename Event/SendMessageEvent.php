@@ -6,14 +6,13 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class SendMessageEvent
- * @package Trinity\Bundle\MessagesBundle\Event
  *
  * This event is used to listened by lower level class which is responsible for sending messages.
  */
 class SendMessageEvent extends MessageEvent
 {
     const NAME = 'trinity.messages.sendMessage';
-    
+
     /** @var Message */
     protected $message;
 

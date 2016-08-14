@@ -5,8 +5,7 @@ namespace Trinity\Bundle\MessagesBundle\Interfaces;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
- * Interface MessageUserProviderInterface
- * @package Trinity\Bundle\MessagesBundle\Interfaces
+ * Interface MessageUserProviderInterface.
  */
 interface MessageUserProviderInterface
 {

@@ -10,9 +10,7 @@ use Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException;
 use Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException;
 
 /**
- * Class Message
- *
- * @package Trinity\Bundle\MessagesBundle\Message
+ * Class Message.
  */
 class Message
 {
@@ -76,7 +74,7 @@ class Message
     }
 
     /**
-     * Make hash from the object's data
+     * Make hash from the object's data.
      *
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
@@ -105,7 +103,7 @@ class Message
                     $this->parentMessageUid,
                     $this->sender,
                     $this->destination,
-                    $this->user
+                    $this->user,
                 ]
             )
         );
@@ -115,6 +113,7 @@ class Message
      * Check if the current hash is equal to newly generated hash.
      *
      * @return bool
+     *
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      */
@@ -144,7 +143,7 @@ class Message
         if ($this->type === '') {
             throw new MissingMessageTypeException('Trying to pack a message without type');
         }
-        
+
         if ($this->user === '') {
             throw new MissingMessageUserException();
         }
@@ -164,11 +163,10 @@ class Message
         } else {
             return $this->getAsJson();
         }
-
     }
 
     /**
-     * Unpack message
+     * Unpack message.
      *
      * Method can not have return type because PHP sucks... @see https://wiki.php.net/rfc/return_types
      *
@@ -191,7 +189,7 @@ class Message
         $messageObject->type = $messageArray[self::MESSAGE_TYPE_KEY];
         $messageObject->uid = $messageArray[self::UID_KEY];
         $messageObject->clientId = $messageArray[self::CLIENT_ID_KEY];
-        $messageObject->createdAt = (int)$messageArray[self::CREATED_AT_KEY];
+        $messageObject->createdAt = (int) $messageArray[self::CREATED_AT_KEY];
         $messageObject->hash = $messageArray[self::HASH_KEY];
         $messageObject->jsonData = $messageArray[self::DATA_KEY];
         $messageObject->rawData = \json_decode($messageObject->jsonData, true);
@@ -204,7 +202,7 @@ class Message
     }
 
     /**
-     * Get the Message as json
+     * Get the Message as json.
      *
      * @return string
      */
@@ -216,7 +214,7 @@ class Message
     }
 
     /**
-     * Get the message as array
+     * Get the message as array.
      *
      * @return array
      */
@@ -232,7 +230,7 @@ class Message
             self::PARENT_MESSAGE_UID_KEY => $this->parentMessageUid,
             self::SENDER_KEY => $this->sender,
             self::DESTINATION_KEY => $this->destination,
-            self::USER_KEY => $this->user
+            self::USER_KEY => $this->user,
         ];
     }
 
@@ -336,7 +334,7 @@ class Message
         if ($createdAt instanceof \DateTime) {
             $this->createdAt = $createdAt->getTimestamp();
         } elseif (is_int($createdAt)) {
-            $this->createdAt = (int)$createdAt;
+            $this->createdAt = (int) $createdAt;
         }
     }
 

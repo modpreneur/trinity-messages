@@ -3,8 +3,7 @@
 namespace Trinity\Bundle\MessagesBundle\Exception;
 
 /**
- * Class HashMismatchException
- * @package Trinity\Bundle\MessagesBundle\Exception
+ * Class HashMismatchException.
  */
 class HashMismatchException extends \Exception
 {

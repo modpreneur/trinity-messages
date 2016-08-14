@@ -5,13 +5,12 @@ namespace Trinity\Bundle\MessagesBundle\Event;
 use Trinity\Bundle\MessagesBundle\Message\StatusMessage;
 
 /**
- * Class StatusMessageEvent
- * @package Trinity\Bundle\MessagesBundle\Event
+ * Class StatusMessageEvent.
  */
 class StatusMessageEvent extends MessageEvent
 {
     const NAME = 'trinity.messages.statusMessageEvent';
-    
+
     /** @var  StatusMessage */
     protected $statusMessage;
 

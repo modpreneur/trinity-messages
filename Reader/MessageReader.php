@@ -12,11 +12,9 @@ use Trinity\Bundle\MessagesBundle\Interfaces\SecretKeyProviderInterface;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
- * Class MessageReader
+ * Class MessageReader.
  *
  * This class is an starting point for incoming message.
- *
- * @package Trinity\Bundle\MessagesBundle\Message
  */
 class MessageReader
 {
@@ -41,13 +39,14 @@ class MessageReader
 
     /**
      * @param string $messageJson
-     * @param string $source Source of the message(rabbit queue, API endpoint)
+     * @param string $source      Source of the message(rabbit queue, API endpoint)
      *
      * @throws \Trinity\Bundle\MessagesBundle\Exception\DataNotValidJsonException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MessageNotProcessedException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\HashMismatchException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
+     * @throws \Exception
      */
     public function read(string $messageJson, string $source)
     {
@@ -82,6 +81,7 @@ class MessageReader
      * @param string $source
      *
      * @return Message
+     *
      * @throws \Exception
      */
     protected function getAndDispatchMessageObject(string $messageString, string $source)
@@ -119,7 +119,7 @@ class MessageReader
     }
 
     /**
-     * Log message
+     * Log message.
      *
      * @param string       $messageJson
      * @param string       $source
@@ -165,7 +165,7 @@ class MessageReader
     {
         if ($event === null || !$event->isEventProcessed()) {
             $exception = new MessageNotProcessedException(
-                'The given message was not processed by any event!. Message data: ' . $message->getJsonData()
+                'The given message was not processed by any event!. Message data: '.$message->getJsonData()
             );
             $exception->setMessageObject($message);
 

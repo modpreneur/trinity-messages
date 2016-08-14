@@ -6,7 +6,6 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class ReadMessageError
- * @package Trinity\Bundle\MessagesBundle\Event
  *
  * This event is dispatched when reading of a message failed.
  * This can by because of malformed data, missing credentials of invalid message format.
@@ -14,7 +13,7 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
 class ReadMessageErrorEvent extends MessageEvent
 {
     const NAME = 'trinity.messages.readMessageError';
-    
+
     /** @var  string */
     protected $messageJson;
 

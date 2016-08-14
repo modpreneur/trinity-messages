@@ -6,7 +6,6 @@ use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
  * Class AfterMessageUnpackedEvent
- * @package Trinity\Bundle\MessagesBundle\Event
  *
  * This event id dispatched when the message was unpacked either with or without error.
  * This event is meant to be used for logging all received message.

@@ -5,9 +5,7 @@ namespace Trinity\Bundle\MessagesBundle\Interfaces;
 use Trinity\Bundle\MessagesBundle\Message\Message;
 
 /**
- * Interface MessageLoggerInterface
- *
- * @package Trinity\NotificationBundle\Interfaces
+ * Interface MessageLoggerInterface.
  */
 interface MessageLoggerInterface
 {
@@ -33,7 +31,6 @@ interface MessageLoggerInterface
         string $error = ''
     );
 
-
     /**
      * Log a dead lettered message. The message was not accepted by the receiver. Set it's status to error.
      *
@@ -49,7 +46,6 @@ interface MessageLoggerInterface
         string $source = '',
         string $destination = ''
     );
-
 
     /**
      * Set status of the message with $messageId to $status.
