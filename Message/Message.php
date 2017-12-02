@@ -14,18 +14,17 @@ use Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException;
  */
 class Message
 {
-    const UID_KEY = 'uid';
-    const DATA_KEY = 'data';
-    const HASH_KEY = 'hash';
-    const CLIENT_ID_KEY = 'clientId';
-    const CREATED_AT_KEY = 'createdAt';
-    const MESSAGE_TYPE_KEY = 'messageType';
-    const PARENT_MESSAGE_UID_KEY = 'parent';
-    const SENDER_KEY = 'sender';
-    const DESTINATION_KEY = 'destination';
-    const USER_KEY = 'user';
-
-    const MESSAGE_TYPE = 'message';
+    private const UID_KEY = 'uid';
+    private const DATA_KEY = 'data';
+    private const HASH_KEY = 'hash';
+    private const CLIENT_ID_KEY = 'clientId';
+    private const CREATED_AT_KEY = 'createdAt';
+    private const MESSAGE_TYPE_KEY = 'messageType';
+    private const PARENT_MESSAGE_UID_KEY = 'parent';
+    private const SENDER_KEY = 'sender';
+    private const DESTINATION_KEY = 'destination';
+    private const USER_KEY = 'user';
+    private const MESSAGE_TYPE = 'message';
 
     /** @var  string */
     protected $uid;
@@ -79,7 +78,7 @@ class Message
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      */
-    public function makeHash()
+    public function makeHash(): void
     {
         if (!$this->secretKey) {
             throw new MissingSecretKeyException('No client secret defined while trying to make hash.');
@@ -128,8 +127,6 @@ class Message
     /**
      * Encode message to JSON or array.
      *
-     * @param bool $getAsArray
-     *
      * @return string
      *
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException
@@ -138,14 +135,14 @@ class Message
      * @throws MissingMessageTypeException
      * @throws MissingSecretKeyException
      */
-    public function pack(bool $getAsArray = false) : string
+    public function pack() : string
     {
         if ($this->type === '') {
             throw new MissingMessageTypeException('Trying to pack a message without type');
         }
 
         if ($this->user === '') {
-            throw new MissingMessageUserException();
+            throw new MissingMessageUserException('Trying to pack a message without user');
         }
 
         if ($this->destination === '') {
@@ -158,11 +155,7 @@ class Message
 
         $this->makeHash();
 
-        if ($getAsArray === true) {
-            return $this->getAsArray();
-        } else {
-            return $this->getAsJson();
-        }
+        return $this->getAsJson();
     }
 
     /**
@@ -176,7 +169,7 @@ class Message
      *
      * @throws DataNotValidJsonException
      */
-    public static function unpack(string $messageJson)
+    public static function unpack(string $messageJson): Message
     {
         $messageObject = new self();
 
@@ -218,7 +211,7 @@ class Message
      *
      * @return array
      */
-    protected function getAsArray()
+    protected function getAsArray(): array
     {
         return [
             self::MESSAGE_TYPE_KEY => $this->type,
@@ -239,7 +232,7 @@ class Message
      *
      * @return Message
      */
-    public function copyTo(Message $message)
+    public function copyTo(Message $message): Message
     {
         $message->type = $this->type;
         $message->uid = $this->uid;
@@ -261,7 +254,7 @@ class Message
      *
      * @return Message
      */
-    public static function createFromMessage(Message $message)
+    public static function createFromMessage(Message $message): Message
     {
         $returnMessage = new self();
 
@@ -281,7 +274,7 @@ class Message
     /**
      * @param string $uid
      */
-    public function setUid(string $uid)
+    public function setUid(string $uid): void
     {
         $this->uid = $uid;
     }
@@ -297,7 +290,7 @@ class Message
     /**
      * @param string $clientId
      */
-    public function setClientId(string $clientId)
+    public function setClientId(string $clientId): void
     {
         $this->clientId = $clientId;
     }
@@ -313,7 +306,7 @@ class Message
     /**
      * @param string $secretKey
      */
-    public function setSecretKey(string $secretKey)
+    public function setSecretKey(string $secretKey): void
     {
         $this->secretKey = $secretKey;
     }
@@ -329,12 +322,12 @@ class Message
     /**
      * @param \DateTime|int $createdAt DateTime or timestamp(which is converted to datetime internally)
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt($createdAt): void
     {
         if ($createdAt instanceof \DateTime) {
             $this->createdAt = $createdAt->getTimestamp();
-        } elseif (is_int($createdAt)) {
-            $this->createdAt = (int) $createdAt;
+        } elseif (\is_int($createdAt)) {
+            $this->createdAt = $createdAt;
         }
     }
 
@@ -349,7 +342,7 @@ class Message
     /**
      * @param string $hash
      */
-    public function setHash(string $hash)
+    public function setHash(string $hash): void
     {
         $this->hash = $hash;
     }
@@ -365,7 +358,7 @@ class Message
     /**
      * @param string $type
      */
-    public function setType(string $type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -381,7 +374,7 @@ class Message
     /**
      * @param string $jsonData
      */
-    public function setJsonData(string $jsonData)
+    public function setJsonData(string $jsonData): void
     {
         $this->jsonData = $jsonData;
     }
@@ -397,7 +390,7 @@ class Message
     /**
      * @param mixed $rawData
      */
-    public function setRawData($rawData)
+    public function setRawData($rawData): void
     {
         $this->rawData = $rawData;
     }
@@ -413,7 +406,7 @@ class Message
     /**
      * @param string $parentMessageUid
      */
-    public function setParentMessageUid(string $parentMessageUid)
+    public function setParentMessageUid(string $parentMessageUid): void
     {
         $this->parentMessageUid = $parentMessageUid;
     }
@@ -429,7 +422,7 @@ class Message
     /**
      * @param string $sender
      */
-    public function setSender(string $sender)
+    public function setSender(string $sender): void
     {
         $this->sender = $sender;
     }
@@ -445,7 +438,7 @@ class Message
     /**
      * @param string $destination
      */
-    public function setDestination(string $destination)
+    public function setDestination(string $destination): void
     {
         $this->destination = $destination;
     }
@@ -461,7 +454,7 @@ class Message
     /**
      * @param string $user
      */
-    public function setUser(string $user)
+    public function setUser(string $user): void
     {
         $this->user = $user;
     }

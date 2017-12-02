@@ -4,7 +4,6 @@ namespace Trinity\Bundle\MessagesBundle\Sender;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Trinity\Bundle\MessagesBundle\Event\SendMessageEvent;
-use Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException;
 use Trinity\Bundle\MessagesBundle\Exception\MissingSendMessageListenerException;
 use Trinity\Bundle\MessagesBundle\Interfaces\MessageUserProviderInterface;
 use Trinity\Bundle\MessagesBundle\Interfaces\SecretKeyProviderInterface;
@@ -47,14 +46,9 @@ class MessageSender
     /**
      * Send all messages.
      *
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSendMessageListenerException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageDestinationException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException
+     * @throws MissingSendMessageListenerException
      */
-    public function sendAll()
+    public function sendAll(): void
     {
         foreach ($this->messages as $message) {
             $this->sendMessage($message);
@@ -68,14 +62,9 @@ class MessageSender
      *
      * @param Message $message
      *
-     * @throws MissingMessageDestinationException
      * @throws MissingSendMessageListenerException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException
      */
-    public function sendMessage(Message $message)
+    public function sendMessage(Message $message): void
     {
         if ($this->eventDispatcher->hasListeners(SendMessageEvent::NAME) === false) {
             throw new MissingSendMessageListenerException(
@@ -104,7 +93,7 @@ class MessageSender
     /**
      * @return MessageUserProviderInterface
      */
-    public function getMessageUserProviderInterface()
+    public function getMessageUserProviderInterface(): MessageUserProviderInterface
     {
         return $this->messageUserProvider;
     }
@@ -112,7 +101,7 @@ class MessageSender
     /**
      * @param MessageUserProviderInterface $messageUserProvider
      */
-    public function setMessageUserProvider(MessageUserProviderInterface $messageUserProvider)
+    public function setMessageUserProvider(MessageUserProviderInterface $messageUserProvider): void
     {
         $this->messageUserProvider = $messageUserProvider;
     }
@@ -120,7 +109,7 @@ class MessageSender
     /**
      * @return SecretKeyProviderInterface
      */
-    public function getSecretKeyProvider()
+    public function getSecretKeyProvider(): SecretKeyProviderInterface
     {
         return $this->secretKeyProvider;
     }
@@ -128,7 +117,7 @@ class MessageSender
     /**
      * @param SecretKeyProviderInterface $secretKeyProvider
      */
-    public function setSecretKeyProvider($secretKeyProvider)
+    public function setSecretKeyProvider($secretKeyProvider): void
     {
         $this->secretKeyProvider = $secretKeyProvider;
     }
@@ -144,7 +133,7 @@ class MessageSender
     /**
      * @param Message[] $messages
      */
-    public function setMessages(array $messages)
+    public function setMessages(array $messages): void
     {
         $this->messages = $messages;
     }
@@ -152,7 +141,7 @@ class MessageSender
     /**
      * @param Message $message
      */
-    public function addMessage(Message $message)
+    public function addMessage(Message $message): void
     {
         $this->messages[] = $message;
     }
@@ -160,7 +149,7 @@ class MessageSender
     /**
      * Clear queued messages.
      */
-    public function clear()
+    public function clear(): void
     {
         $this->messages = [];
     }

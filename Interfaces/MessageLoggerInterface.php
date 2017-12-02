@@ -20,7 +20,6 @@ interface MessageLoggerInterface
      * @param string  $status        Status of the message(ok, error).
      * @param string  $error         Error message from the message(if provided)
      *
-     * @return
      */
     public function logMessage(
         Message $messageObject = null,

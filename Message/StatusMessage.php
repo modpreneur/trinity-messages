@@ -11,13 +11,13 @@ use Trinity\Bundle\MessagesBundle\Exception\InvalidMessageStatusException;
  */
 class StatusMessage extends Message
 {
-    const STATUS_KEY = 'status';
-    const STATUS_MESSAGE_KEY = 'message';
+    private const STATUS_KEY = 'status';
+    private const STATUS_MESSAGE_KEY = 'message';
 
-    const STATUS_OK = 'ok';
-    const STATUS_ERROR = 'error';
+    public const STATUS_OK = 'ok';
+    public const STATUS_ERROR = 'error';
 
-    const MESSAGE_TYPE = 'status';
+    public const MESSAGE_TYPE = 'status';
 
     /**
      * StatusMessage constructor.
@@ -33,8 +33,6 @@ class StatusMessage extends Message
     /**
      * Encode message to JSON.
      *
-     * @param bool $getAsArray
-     *
      * @return string
      *
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageUserException
@@ -43,24 +41,11 @@ class StatusMessage extends Message
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingMessageTypeException
      */
-    public function pack(bool $getAsArray = false) : string
+    public function pack() : string
     {
         $this->jsonData = json_encode($this->rawData);
 
-        return parent::pack($getAsArray);
-    }
-
-    /**
-     * @param Message $message
-     *
-     * @return StatusMessage
-     */
-    public static function createFromMessage(Message $message) : self
-    {
-        $statusMessage = new self();
-        $message->copyTo($statusMessage);
-
-        return $statusMessage;
+        return parent::pack();
     }
 
     /**

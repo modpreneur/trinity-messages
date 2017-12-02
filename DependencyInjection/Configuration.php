@@ -7,13 +7,16 @@
 
 namespace Trinity\Bundle\MessagesBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that validates and merges configuration from your app/config files.
  *
- * To learn more see {@link * http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
+ * To learn more see {
+ * @link * http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class
+ * }
  */
 class Configuration implements ConfigurationInterface
 {
@@ -22,10 +25,11 @@ class Configuration implements ConfigurationInterface
      *
      * @throws \RuntimeException
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
 
+        /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->root('trinity_messages');
 
         $rootNode->children()->scalarNode('sender_identification')->cannotBeEmpty()->isRequired();
@@ -35,7 +39,7 @@ class Configuration implements ConfigurationInterface
             //if the string starts with @, e.g. @service.name
             ->ifTrue(
                 function ($v) {
-                    return is_string($v) && 0 === strpos($v, '@');
+                    return \is_string($v) && 0 === strpos($v, '@');
                 }
             )
             //return it's name without '@', e.g. service.name
@@ -48,7 +52,7 @@ class Configuration implements ConfigurationInterface
             //if the string starts with @, e.g. @service.name
             ->ifTrue(
                 function ($v) {
-                    return is_string($v) && 0 === strpos($v, '@');
+                    return \is_string($v) && 0 === strpos($v, '@');
                 }
             )
             //return it's name without '@', e.g. service.name

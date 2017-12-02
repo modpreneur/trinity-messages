@@ -39,16 +39,11 @@ class MessageReader
 
     /**
      * @param string $messageJson
-     * @param string $source      Source of the message(rabbit queue, API endpoint)
+     * @param string $source Source of the message(rabbit queue, API endpoint)
      *
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\DataNotValidJsonException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MessageNotProcessedException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\HashMismatchException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
-     * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      * @throws \Exception
      */
-    public function read(string $messageJson, string $source)
+    public function read(string $messageJson, string $source): void
     {
         $messageObject = null;
 
@@ -84,7 +79,7 @@ class MessageReader
      *
      * @throws \Exception
      */
-    protected function getAndDispatchMessageObject(string $messageString, string $source)
+    protected function getAndDispatchMessageObject(string $messageString, string $source): Message
     {
         try {
             $messageObject = Message::unpack($messageString);
@@ -101,7 +96,7 @@ class MessageReader
     /**
      * @param SecretKeyProviderInterface $secretKeyProvider
      */
-    public function setSecretKeyProvider(SecretKeyProviderInterface $secretKeyProvider)
+    public function setSecretKeyProvider(SecretKeyProviderInterface $secretKeyProvider): void
     {
         $this->secretKeyProvider = $secretKeyProvider;
     }
@@ -131,7 +126,7 @@ class MessageReader
         string $source,
         Message $messageObject = null,
         \Exception $exception = null
-    ) {
+    ): void {
         $event = new AfterUnpackMessageEvent($messageJson, $source, $messageObject, $exception);
 
         $this->eventDispatcher->dispatch(AfterUnpackMessageEvent::NAME, $event);
@@ -144,7 +139,7 @@ class MessageReader
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingSecretKeyException
      * @throws \Trinity\Bundle\MessagesBundle\Exception\MissingClientIdException
      */
-    protected function checkHash(Message $messageObject)
+    protected function checkHash(Message $messageObject): void
     {
         $messageObject->setSecretKey(
             $this->secretKeyProvider->getSecretKey($messageObject->getClientId())
@@ -161,9 +156,9 @@ class MessageReader
      *
      * @throws MessageNotProcessedException
      */
-    protected function checkIfTheMessageWasProcessed(ReadMessageEvent $event, Message $message)
+    protected function checkIfTheMessageWasProcessed(ReadMessageEvent $event, Message $message): void
     {
-        if ($event === null || !$event->isEventProcessed()) {
+        if ($event == null || !$event->isEventProcessed()) {
             $exception = new MessageNotProcessedException(
                 'The given message was not processed by any event!. Message data: '.$message->getJsonData()
             );
@@ -184,7 +179,7 @@ class MessageReader
         string $source,
         \Exception $exception,
         Message $message = null
-    ) {
+    ): void {
         $event = new ReadMessageErrorEvent($messageJson, $source, $exception, $message);
         $this->eventDispatcher->dispatch(ReadMessageErrorEvent::NAME, $event);
     }
